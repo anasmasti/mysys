@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './routes/index.js'
 import axios from '../src/services/axios'
-import store from './store/formation/index'
+import { store } from './store/index'
 import VueSocialSharing from 'vue-social-sharing'
 
 Vue.config.productionTip = false;

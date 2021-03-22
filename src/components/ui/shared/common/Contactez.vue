@@ -1,9 +1,3 @@
-<script type="text/javascript">
-export default {
-  name: 'Contactez'
-}
-</script>
-
 <template>
   <div class="container-fluid bg_light_2 px-3 py-5" id="contactez">
     <div class="d-flex flex-column justify-content-center align-items-center">
@@ -15,3 +9,9 @@ export default {
     </div>
   </div>
 </template>
+
+<script type="text/javascript">
+export default {
+  name: 'Contactez'
+}
+</script>

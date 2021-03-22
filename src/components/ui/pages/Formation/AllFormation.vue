@@ -125,7 +125,7 @@
 import NavBar from '../../shared/common/NavBar.vue'
 import FormationCard from '../../shared/FormationCard.vue'
 import Contactez from '../../shared/common/Contactez.vue'
-import {store} from '../../../../store/formation/index'
+import {  mapState } from 'vuex'
 // import { mapActions } from 'vuex'
 
 export default {
@@ -147,79 +147,85 @@ export default {
     this.theme_param = this.$route.params.theme_param ? Math.round(this.$route.params.theme_param) : undefined;
   },
   async created() {
-    document.title = "MySYS • Formations";
+    document.title = "MySYS - Formations";
     window.scrollTo(0, 0);
     
     // ****** DISPATCH ~ ACTIONS ****** //
     // get Data
-    await store.dispatch('FetchDomaineData');
-    await store.dispatch('FetchThemeData');
-    await store.dispatch('FetchFormationData');
+    await this.$store.formation_module.dispatch('fetchDomaineData');
+    await this.$store.formation_module.dispatch('fetchThemeData');
+    await this.$store.formation_module.dispatch('fetchFormationData');
 
     // SET CURRENT ID's
-    await store.dispatch('SetCurrDomaineId', this.domaine_param);
-    await store.dispatch('SetCurrThemeId', this.theme_param);
+    await this.$store.formation_module.dispatch('setCurrDomaineId', this.domaine_param);
+    await this.$store.formation_module.dispatch('setCurrThemeId', this.theme_param);
 
     // get domaine_by_id and themes_by_domaine
     // check if there are params
     if (this.domaine_param) {
-      await store.dispatch('SetDomaineById', this.domaine_param);
-      await store.dispatch('SetThemesByDomaine', this.domaine_param);
-    } else { // by default
-      await store.dispatch('SetDomaineById');
-      await store.dispatch('SetThemesByDomaine');
+      await this.$store.formation_module.dispatch('setDomaineById', this.domaine_param);
+      await this.$store.formation_module.dispatch('setThemesByDomaine', this.domaine_param);
+    } else { // by defauls
+      await this.$store.formation_module.dispatch('setDomaineById');
+      await this.$store.formation_module.dispatch('setThemesByDomaine');
     }
     // get theme_by_id and formations_by_theme
     if (this.theme_param) {
-      await store.dispatch('SetThemeById', this.theme_param);
-      await store.dispatch('SetFormationsByTheme', this.theme_param);
+      await this.$store.formation_module.dispatch('setThemeById', this.theme_param);
+      await this.$store.formation_module.dispatch('setFormationsByTheme', this.theme_param);
     } else {
-      await store.dispatch('SetThemeById');
-      await store.dispatch('SetFormationsByTheme');
+      await this.$store.formation_module.dispatch('setThemeById');
+      await this.$store.formation_module.dispatch('setFormationsByTheme');
     }
   },
   computed: {
     // assigner les id initiales à partir d'URL ou des données array
     // currDomaineId() { return this.domaine_param || null; },
     // currThemeId() { return this.theme_param || null; },
-    // *** data from state ***
-    domaines() { return store.state.domaines; },
-    themes_by_domaine() { return store.state.themes_by_domaine; },
-    formations_by_theme() { return store.state.formations_by_theme; },
+    ...mapState({
+         // *** data from state ***
+    domaines: state => state.formation_module.domaines,
+    themes_by_domaine: state => state.formation_module.themes_by_domaine,
+    formations_by_theme: state => state.formation_module.formations_by_theme,
     // > data by id
-    domaine_by_id() { return store.state.domaine_by_id; },
-    theme_by_id() { return store.state.theme_by_id; },
+    domaine_by_id: state => state.formation_module.domaine_by_id,
+    theme_by_id: state => state.formation_module.theme_by_id,
     // > is data loaded
-    is_domaineLoaded() { return store.state.is_domaineLoaded; },
-    is_themeLoaded() { return store.state.is_themeLoaded; },
-    is_formationLoaded() { return store.state.is_formationLoaded; },
+    is_domaineLoaded: state => state.formation_module.is_domaineLoaded,
+    is_themeLoaded: state => state.formation_module.is_themeLoaded,
+    is_formationLoaded: state => state.formation_module.is_formationLoaded,
     // > data IDs
-    currDomaineId() { return store.state.currDomaineId; },
-    currThemeId() { return store.state.currThemeId; },
-    currFormaId() { return store.state.currFormaId; },
+    currDomaineId: state => state.formation_module.currDomaineId,
+    currThemeId: state => state.formation_module.currThemeId,
+    currFormaId: state => state.formation_module.currFormaId,
     // > has errors
-    has_domaineError() { return store.state.has_domaineError },
-    has_themeError() { return store.state.has_themeError },
-    has_formationError() { return store.state.has_formationError },
+    has_domaineError: state => state.formation_module.has_domaineError,
+    has_themeError: state => state.formation_module.has_themeError,
+    has_formationError: state => state.formation_module.has_formationError,
     // > errors
-    domaineError() { return store.state.domaineError },
-    themeError() { return store.state.themeError },
-    formationError() { return store.state.formationError },
+    domaineError: state => state.formation_module.domaineError,
+    themeError: state => state.formation_module.themeError,
+    formationError: state => state.formation_module.formationError,
+    })
+ 
   },
   watch: {
   },
   methods: {
+    // ...mapActions([
+    //  'formation_module/setFormationsByTheme',
+    // ]),
     async handleAction(action, targetId = null) {
-      await store.dispatch(action, targetId);
+      await this.$store.formation_module.dispatch(action, targetId);
     },
     async LoadThemesWithFormations(domaineId) {
       // changer le id domaine actuel
-      await store.dispatch('SetCurrDomaineId', domaineId);
+      await this.$store.formation_module.dispatch('setCurrDomaineId', domaineId);
       //console.log("currDomaineId", domaineId)
       // récupérer les thèmes avec id domaine actuel
-      await store.dispatch('SetThemesByDomaine', domaineId);
+      await this.$store.formation_module.dispatch('setThemesByDomaine', domaineId);
       // récupérer les formations du premier id theme (par defaut dans store)
-      await store.dispatch('SetFormationsByTheme');
+      await this.$store.formation_module.dispatch('setFormationsByTheme');
     },
     // scroll
     ScrollLeft(valToScroll) { 

@@ -1,13 +1,3 @@
-<script>
-export default {
-  name: 'Footer',
-}
-</script>
-
-<style lang="scss">
-  @import '../../../../assets/css/footer.scss';
-</style>
-
 <template>
 <div id="mysysFooter">
   <div class="footer container-fluid p-5">
@@ -126,6 +116,17 @@ export default {
 </div>
 </template>
 
-s
+<style lang="scss">
+  @import '../../../../assets/css/footer.scss';
+</style>
+
+<script>
+export default {
+  name: 'Footer',
+}
+</script>
+
+
+
 
 

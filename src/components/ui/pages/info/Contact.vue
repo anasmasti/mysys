@@ -80,12 +80,9 @@ export default {
       
     </div>
     </div>
- 
     <!-- end-row -->
-
   </div>
   <!-- end-container -->
-
 </div>
 </template>
 

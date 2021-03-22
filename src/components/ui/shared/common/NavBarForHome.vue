@@ -34,12 +34,13 @@
       </ul>
     </div>
   </nav>
-
 </div>
 </template>
+
 <style>
 .navforformation{position:relative;z-index:2 !important; margin-bottom:-70px !important}
 </style>
+
 <script>
 export default {
   name: 'NavBarForHome',

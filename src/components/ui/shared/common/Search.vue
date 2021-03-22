@@ -1,42 +1,3 @@
-<script>
-import { store } from '../../../../store/formation/index'
-
-export default {
-  name: 'Search',
-  data() {
-    return {
-      search_value: undefined
-    }
-  },
-  mounted() {
-  },
-  computed: {
-    domaines() { return store.state.domaines; },
-    themes() { return store.state.themes; },
-    formations() { return store.state.formations; }
-  },
-  methods: {
-    Search() {
-      
-    },
-    ToggleSearchList() {
-      let searchResult = document.getElementById('searchResult').classList;
-      if (searchResult.contains('d-none')) {
-        searchResult.add('d-block');
-        searchResult.remove('d-none');
-      } else {
-        searchResult.add('d-none');
-        searchResult.remove('d-block');
-      }
-    },
-  }, // methods
-}
-</script>
-
-<style lang="scss">
-  @import '../../../../assets/css/search.scss';
-</style>
-
 <template>
   <section class="container-fluid py-5">
     <div class="mysys-search-box d-flex flex-nowrap">
@@ -64,3 +25,50 @@ export default {
     </div>
   </section>
 </template>
+
+<style lang="scss">
+  @import '../../../../assets/css/search.scss';
+</style>
+
+<script>
+import { mapState } from 'vuex';
+
+export default {
+  name: 'Search',
+  data() {
+    return {
+      search_value: undefined
+    }
+  },
+  mounted() {
+  },
+  computed: {
+    ...mapState({
+       domaines: state => state.formation_module.domaines,
+       themes: state => state.formation_module.themes,
+       formations: state => state.formation_module.formations,
+    })
+    // domaines() { return this.$store.formation_module.domaines; },
+    // themes() { return this.$store.formation_module.themes; },
+    // formations() { return this.$store.formation_module.formations; }
+  },
+  methods: {
+    Search() {
+      
+    },
+    ToggleSearchList() {
+      let searchResult = document.getElementById('searchResult').classList;
+      if (searchResult.contains('d-none')) {
+        searchResult.add('d-block');
+        searchResult.remove('d-none');
+      } else {
+        searchResult.add('d-none');
+        searchResult.remove('d-block');
+      }
+    },
+  }, // methods
+}
+</script>
+
+
+

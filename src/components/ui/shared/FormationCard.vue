@@ -1,23 +1,7 @@
-<script>
-
-export default {
-  components: {
-  },
-  props: {
-    formations: {type: Array, required: true}
-  },
-}
-</script>
-
-<style lang="scss">
-  @import '../../../assets/css/allformation.scss';
-</style>
-
 <template>
   <div class="t-cards">
     <!-- card -->
     <div class="t-card" :key="formIndex" v-for="(form, formIndex) in formations">
-      
       <!-- card-header -->
       <div class="t-card-header">
           
@@ -61,3 +45,20 @@ export default {
   <!-- end-cards -->
 
 </template>
+
+<style lang="scss">
+  @import '../../../assets/css/allformation.scss';
+</style>
+
+<script>
+export default {
+  components: {
+  },
+  props: {
+    formations: {type: Array, required: true}
+  },
+}
+</script>
+
+
+

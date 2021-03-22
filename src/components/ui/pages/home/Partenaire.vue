@@ -1,28 +1,3 @@
-<script>
-export default {
-  components: { },
-  name: 'Partenaire',
-  data() {
-    return {
-      partenaires: [
-        {imgURL: require('../../../../assets/img/companies/pearson.png'), alt: 'pearson-partenaire'},
-        {imgURL: require('../../../../assets/img/companies/odoo.png'), alt: 'odoo-partenaire'},
-        {imgURL: require('../../../../assets/img/companies/oracle.png'), alt: 'oracle-partenaire'},
-        {imgURL: require('../../../../assets/img/companies/microsoft.png'), alt: 'microsoft-partenaire'},
-        {imgURL: require('../../../../assets/img/companies/sap.png'), alt: 'sap-partenaire'},
-        {imgURL: require('../../../../assets/img/companies/ibm.png'), alt: 'ibm-partenaire'},
-        {imgURL: require('../../../../assets/img/companies/pmi.png'), alt: 'pmi-partenaire'},
-      ]
-    }
-  } // data
-}
-</script>
-
-<style lang="scss">
-  @import '../../../../assets/css/partenaire.scss';
-</style>
-
-
 <template>
 <div id="partenaire">
  <div class="container-fluid mb-4 border-bottom">
@@ -60,3 +35,29 @@ export default {
 
 </div>
 </template>
+
+<script>
+export default {
+  components: { },
+  name: 'Partenaire',
+  data() {
+    return {
+      partenaires: [
+        {imgURL: require('../../../../assets/img/companies/pearson.png'), alt: 'pearson-partenaire'},
+        {imgURL: require('../../../../assets/img/companies/odoo.png'), alt: 'odoo-partenaire'},
+        {imgURL: require('../../../../assets/img/companies/oracle.png'), alt: 'oracle-partenaire'},
+        {imgURL: require('../../../../assets/img/companies/microsoft.png'), alt: 'microsoft-partenaire'},
+        {imgURL: require('../../../../assets/img/companies/sap.png'), alt: 'sap-partenaire'},
+        {imgURL: require('../../../../assets/img/companies/ibm.png'), alt: 'ibm-partenaire'},
+        {imgURL: require('../../../../assets/img/companies/pmi.png'), alt: 'pmi-partenaire'},
+      ]
+    }
+  } // data
+}
+</script>
+
+<style lang="scss">
+  @import '../../../../assets/css/partenaire.scss';
+</style>
+
+

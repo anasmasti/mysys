@@ -193,8 +193,6 @@ export default {
      </div>
      </div></div>
 
-    
-
      <div class="col-lg-6"> <div class="card p-lg-3 text-light m-3 border-0" style="background-color:#008bff;">
      <div class="card-body font-weight-light">
      <div class="card-title">
@@ -218,8 +216,6 @@ export default {
       </ul>
      </div>
      </div></div>
-
-
 </div>
 </div>
 </div>

@@ -1,3 +1,34 @@
+<template>
+<div id="home" class="home">
+  <div class="bg_jumbo">
+    <nav-bar-for-home></nav-bar-for-home>
+    <jumbotron></jumbotron>
+  </div>
+
+  <domaine></domaine>
+  <our-service></our-service>
+
+  <div class="d-flex flex-wrap">
+    <div class="col-12 col-lg-6 col-xl-6">
+      <expertise></expertise>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-6">
+      <mission></mission>
+    </div>
+  </div>
+
+  <partenaire></partenaire>
+  <chiffre></chiffre>
+  <client></client>
+
+  <div class="line bg_light_2 py-4">
+    <hr />
+  </div>
+  <contactez></contactez>
+  
+</div>
+</template>
+
 <script>
 import Domaine from './Domaine';
 import Jumbotron from './Jumbotron';
@@ -33,41 +64,9 @@ export default {
   mounted() {
   },
   created() {
-    document.title = "MySYS • Une plateforme des formations certifiantes";
+    document.title = "MySYS";
   },
   methods: {
   } // mounted
 }
 </script>
-
-
-<template>
-<div id="home" class="home">
-  <div class="bg_jumbo">
-    <nav-bar-for-home></nav-bar-for-home>
-    <jumbotron></jumbotron>
-  </div>
-
-  <domaine></domaine>
-  <our-service></our-service>
-
-  <div class="d-flex flex-wrap">
-    <div class="col-12 col-lg-6 col-xl-6">
-      <expertise></expertise>
-    </div>
-    <div class="col-12 col-lg-6 col-xl-6">
-      <mission></mission>
-    </div>
-  </div>
-
-  <partenaire></partenaire>
-  <chiffre></chiffre>
-  <client></client>
-
-  <div class="line bg_light_2 py-4">
-    <hr />
-  </div>
-  <contactez></contactez>
-  
-</div>
-</template>

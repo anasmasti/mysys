@@ -1,13 +1,3 @@
-<script>
-
-export default {
-  name: 'Mission',
-}
-</script>
-
-<style lang="scss">
-  @import '../../../../assets/css/expertise.scss';
-</style>
 
 <template>
 <div id="mission">
@@ -23,3 +13,15 @@ export default {
  </div>
 </div>
 </template>
+
+<style lang="scss">
+  @import '../../../../assets/css/expertise.scss';
+</style>
+
+<script>
+
+export default {
+  name: 'Mission',
+}
+</script>
+

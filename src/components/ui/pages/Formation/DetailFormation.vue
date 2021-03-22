@@ -1,225 +1,3 @@
-<script>
-import Contactez from '../../shared/common/Contactez.vue'
-import NavBarForDFormation from '../../shared/common/NavBarForDFormation.vue'
-import FormationSimilaire from './FormationSimilaire.vue'
-import InscriptionModal from './InscriptionModal.vue'
-import SocialShareModal from './SocialShareModal.vue'
-import { store } from '../../../../store/formation/index'
-
-export default {
-  name: 'DetailFormation',
-  components: {
-    NavBarForDFormation,
-    Contactez,
-    FormationSimilaire,
-    InscriptionModal,
-    SocialShareModal,
-  },
-  data() {
-    return {
-      isProgramLoaded: false,
-      isObjectifLoaded: false,
-      form_param: undefined,
-      formation: {},
-      formations_by_cat: [],
-      dataTransform : [
-        {symbol: '##', tag: 'h3', classes: 'subtitle font-lg-s7 font-md-s7 font-s5 text-capitalize mt-4', addition: ''}, // section title
-        {symbol: '&&', tag: 'h4', classes: 'text_mysyscolor1 font-lg-s6 font-md-s6 font-s5 mt-4 mb-2', addition: '⬢ '}, // subtitle bold
-        {symbol: '@@', tag: 'ul', classes: 'd-flex flex-row flex-wrap list-unstyled font-weight-bold', addition: ''}, // ul list container
-        {symbol: '__', tag: 'li', classes: 'font-weight-light pl-3 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-1', addition: '<strong>• </strong>'}, // li list element
-        {symbol: '==', tag: 'li', classes: 'font-weight-light pl-3 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-2', addition: '<strong class="text_mysyscolor1">✔ </strong>'},
-        {symbol: '**', tag: 'strong', classes: 'text_bold', addition: ''}, // text bold
-        {symbol: '//', tag: 'p', classes: 'font-italic', addition: ''}, // italic
-        {symbol: '~~', tag: 'u', classes: 'text-underline', addition: ''}, // underline
-        {symbol: '||', tag: 'mark', classes: 'bg_gradient', addition: ''},
-        {symbol: '""', tag: 'q', classes: '', addition: ''},
-      ],
-      // styles
-      isFormSimShowed: false,
-      formSimStyle: "translate(100%)"
-    }
-  },
-  // ######### MOUNTED #########
-  created() {
-    this.ResetAll();
-    this.form_param = Math.round(this.$route.params.form_param);
-  },
-  beforeDestroy() {
-    // destroy event listener to prevent errors in the console
-    // @ts-ignore
-    window.removeEventListener('scroll', this.DisplayCardOnScroll, { passive: true });
-  },
-  // ######### CREATED #########
-  async mounted() {
-    document.title = "Formation en ...";
-    window.scrollTo(0, 0);
-    window.addEventListener('scroll', this.DisplayCardOnScroll);
-
-    // ****** DISPATCH ~ ACTIONS ****** //
-    await store.dispatch('FetchThemeData');
-    await store.dispatch('FetchFormationData');
-    await store.dispatch('SetFormationById', this.form_param);
-    await store.dispatch('SetFormationsByTheme', this.formation_by_id.mysystheme_id);
-    
-    
-    // !TRANSFORMER LES PARAGRAPHS EN HTML
-    this.ConvertDataTextToView(this.formation_by_id.programme, 'programme');
-    this.isProgramLoaded = true;
-    this.ConvertDataTextToView(this.formation_by_id.objectif, 'objectif');
-    this.isObjectifLoaded = true;
-    this.RemoveCurrentFormationObject(this.form_param);
-
-    document.title = `${this.formation_by_id.name} • ${this.formation_by_id.description.substring(0, 50)}...`;
-  },
-  // ######### COMPUTED ######### 
-  computed: {
-    // *** data from state ***
-    formation_by_id() { return store.state.formation_by_id; },
-    formations_by_theme() { return store.state.formations_by_theme; },
-    // > is data loaded
-    is_themeLoaded() { return store.state.is_themeLoaded; },
-    is_formationsByThemeLoaded() { return store.state.is_formationsByThemeLoaded; }
-  },
-  // ######### WATCH #########
-  watch: {
-    // déclencher une function si les "params" changent
-    $route: async function(to, from) {
-      if (to !== from) {
-        // @ts-ignore
-        this.ResetAll();
-        // ****** DISPATCH ~ ACTIONS ****** //
-        // @ts-ignore
-        await store.dispatch('SetFormationById', this.form_param);
-        // @ts-ignore
-        await store.dispatch('SetFormationsByTheme', this.formation_by_id.mysystheme_id || 1);
-    
-        // !TRANSFORMER LES PARAGRAPHS EN HTML
-        // @ts-ignore
-        this.ConvertDataTextToView(this.formation_by_id.programme, 'programme');
-        this.isProgramLoaded = true;
-        // @ts-ignore
-        this.ConvertDataTextToView(this.formation_by_id.objectif, 'objectif');
-        this.isObjectifLoaded = true;
-        
-        // @ts-ignore
-        this.RemoveCurrentFormationObject(this.form_param);
-      } //end if
-    }
-  },
-  // ######### METHODS #########
-  methods: {
-    // DATA MANIPULATION
-    RemoveCurrentFormationObject(formId) {
-      // supprimer la formation actuelle affiché et récupérer le reste
-      this.formations_by_cat = this.formations_by_theme.filter((formation) => {
-        return formation.id !== formId;
-      });
-      //console.log("form by cat ", this.formations_by_cat);
-    },
-    // **** TRANSFORM CONTENT ****
-    TransformContent(textToTransform, symbol, tag, classes, addition) {
-      return textToTransform ? textToTransform.split(symbol).map(function(value, index) {
-        if (index % 2 == 0) {
-          return value;
-        } else {
-          return `<${tag} class="${classes}">${addition}${value}</${tag}>`;
-        }
-      }).join("") : null;
-    },
-    ConvertStringToHtml(textToConvert, domId) {
-      let domGoal = document.getElementById(domId);
-      let newDom = document.createElement('article');
-      newDom.innerHTML = textToConvert ? textToConvert : "(vide)";
-      domGoal.innerHTML = ""; // clean old paragraph
-      domGoal.append(newDom); // append new paragraph
-      // //console.log(domGoal.textContent);
-    },
-    ConvertDataTextToView(originText, domId) {
-      let myText = originText;
-      // remplacer les symboles du paragraph de formation par des tags HTML
-      this.dataTransform.map((trans) => {
-        let converted = this.TransformContent(myText, trans.symbol, trans.tag, trans.classes, trans.addition);
-        myText = converted;
-        //console.log("domId", domId);
-      });
-      // convert transformed text to HTML
-      this.ConvertStringToHtml(myText, domId);
-    },
-    // **** END TRANSFORM CONTENT ****
-    //***************************************************************/
-    ResetAll() {
-      window.scrollTo(0, 0);
-      // récup. NOUVEAU paramètre
-      this.form_param = parseInt(this.$route.params.form_param);
-      // reset variable
-      this.isObjectifLoaded = this.isProgramLoaded = false;
-      // cacher la section 'formationSimilaire'
-      let formaSim = document.getElementById('formationSimilaire');
-      // @ts-ignore
-      formaSim.style.opacity = 0;
-      this.isFormSimShowed = false;
-    },
-    //***************************************************************/
-    // **** UI METHODES ****
-    ScrollUserTo(elemId) {
-      document.getElementById(elemId).scrollIntoView();
-    },
-    DisplayCardOnScroll() {
-      let card = document.getElementById('formationCard');
-      // let formaJumboHeight = document.getElementById('formaSection').offsetHeight;
-      let formaSim = document.getElementById('formationSimilaire');
-      let formaBanner = document.getElementById('formaBanner');
-      let contactezHeight = document.getElementById('contactez').offsetHeight;
-      let detailFormaHeight = document.getElementById('detailFormation').offsetHeight;
-      let FooterHeight = document.getElementById('mysysFooter').offsetHeight;
-
-      let verticalPos = window.scrollY; // récupérer la position de scroll en px
-      let divHeight = detailFormaHeight - formaSim.offsetHeight - contactezHeight - FooterHeight; // récupérer la taille vertical de 'div'
-      //console.log('vert pos : ' + verticalPos + ' div height : ' + divHeight);
-
-      if (screen.width >= 1024) { // fixer 'card' avec les grandes écrans
-        formaBanner.setAttribute('style', 'display: none !important');
-        if (verticalPos > 100 && verticalPos < divHeight) {
-          card.setAttribute("style", "position: fixed; top: 0; opacity: 1; z-index: 10;");
-          // hide formSimilaire on scroll
-          if (!this.isFormSimShowed) {
-            formaSim.setAttribute("style", "opacity: 0");
-          }
-        } else { // laisser 'card' avec sa position d'origine 
-          card.setAttribute("style", "position: absolute; opacity: 1; z-index: 10;");
-        }
-        if (verticalPos > divHeight) {
-          card.setAttribute('style', "opacity: 0; z-index: 0;");
-          // *** show formSimilaire on scroll ***
-          formaSim.setAttribute("style", "opacity: 1");
-          this.isFormSimShowed = true;
-        }
-      } else if (screen.width < 1024) { // laisser 'card' relative avec le jumbotron (position d'origine relative)
-        card.style.position = "relative";
-        // banner formation
-        if (verticalPos > 700 && verticalPos < divHeight) {
-          formaBanner.setAttribute("style", "display: block; position: fixed; bottom: 0;");
-        } else { // laisser 'formaBanner' avec sa position d'origine 
-          formaBanner.setAttribute("style", "display: block; position: relative;");
-        }
-        if (verticalPos > divHeight) {
-          formaBanner.style.display =  "none";
-        }
-        // *** show formSimilaire on scroll ***
-        formaSim.setAttribute("style", "opacity: 1");
-        this.isFormSimShowed = true;
-      } // screen width
-    },
-
-  } // methods
-}
-</script>
-
-<style lang="scss">
-  @import '../../../../assets/css/detailformation.scss';
-</style>
-
-
 <template>
 
 <div id="detailFormation">
@@ -439,3 +217,226 @@ export default {
 <!-- END-DETAIL-FORMATION -->
 
 </template>
+<style lang="scss">
+  @import '../../../../assets/css/detailformation.scss';
+</style>
+<script>
+import Contactez from '../../shared/common/Contactez.vue'
+import NavBarForDFormation from '../../shared/common/NavBarForDFormation.vue'
+import FormationSimilaire from './FormationSimilaire.vue'
+import InscriptionModal from './InscriptionModal.vue'
+import SocialShareModal from './SocialShareModal.vue'
+
+export default {
+  name: 'DetailFormation',
+  components: {
+    NavBarForDFormation,
+    Contactez,
+    FormationSimilaire,
+    InscriptionModal,
+    SocialShareModal,
+  },
+  data() {
+    return {
+      isProgramLoaded: false,
+      isObjectifLoaded: false,
+      form_param: undefined,
+      formation: {},
+      formations_by_cat: [],
+      dataTransform : [
+        {symbol: '##', tag: 'h3', classes: 'subtitle font-lg-s7 font-md-s7 font-s5 text-capitalize mt-4', addition: ''}, // section title
+        {symbol: '&&', tag: 'h4', classes: 'text_mysyscolor1 font-lg-s6 font-md-s6 font-s5 mt-4 mb-2', addition: '⬢ '}, // subtitle bold
+        {symbol: '@@', tag: 'ul', classes: 'd-flex flex-row flex-wrap list-unstyled font-weight-bold', addition: ''}, // ul list container
+        {symbol: '__', tag: 'li', classes: 'font-weight-light pl-3 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-1', addition: '<strong>• </strong>'}, // li list element
+        {symbol: '==', tag: 'li', classes: 'font-weight-light pl-3 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-2', addition: '<strong class="text_mysyscolor1">✔ </strong>'},
+        {symbol: '**', tag: 'strong', classes: 'text_bold', addition: ''}, // text bold
+        {symbol: '//', tag: 'p', classes: 'font-italic', addition: ''}, // italic
+        {symbol: '~~', tag: 'u', classes: 'text-underline', addition: ''}, // underline
+        {symbol: '||', tag: 'mark', classes: 'bg_gradient', addition: ''},
+        {symbol: '""', tag: 'q', classes: '', addition: ''},
+      ],
+      // styles
+      isFormSimShowed: false,
+      formSimStyle: "translate(100%)"
+    }
+  },
+  // ######### MOUNTED #########
+  created() {
+    this.ResetAll();
+    this.form_param = Math.round(this.$route.params.form_param);
+  },
+  beforeDestroy() {
+    // destroy event listener to prevent errors in the console
+    // @ts-ignore
+    window.removeEventListener('scroll', this.DisplayCardOnScroll, { passive: true });
+  },
+  // ######### CREATED #########
+  async mounted() {
+    document.title = "Formation en ...";
+    window.scrollTo(0, 0);
+    window.addEventListener('scroll', this.DisplayCardOnScroll);
+
+    // ****** DISPATCH ~ ACTIONS ****** //
+    await this.$store.formation_module.dispatch('fetchThemeData');
+    await this.$store.formation_module.dispatch('fetchFormationData');
+    await this.$store.formation_module.dispatch('setFormationById', this.form_param);
+    await this.$store.formation_module.dispatch('setFormationsByTheme', this.formation_by_id.mysystheme_id);
+    
+    
+    // !TRANSFORMER LES PARAGRAPHS EN HTML
+    this.ConvertDataTextToView(this.formation_by_id.programme, 'programme');
+    this.isProgramLoaded = true;
+    this.ConvertDataTextToView(this.formation_by_id.objectif, 'objectif');
+    this.isObjectifLoaded = true;
+    this.RemoveCurrentFormationObject(this.form_param);
+
+    document.title = `${this.formation_by_id.name} • ${this.formation_by_id.description.substring(0, 50)}...`;
+  },
+  // ######### COMPUTED ######### 
+  computed: {
+    // *** data from state ***
+    formation_by_id() { return this.$store.formation_module.state.formation_by_id; },
+    formations_by_theme() { return this.$store.modules.formation_module.state.formations_by_theme; },
+    // > is data loaded
+    is_themeLoaded() { return this.$store.formation_module.state.is_themeLoaded; },
+    is_formationsByThemeLoaded() { return this.$store.formation_module.state.is_formationsByThemeLoaded; }
+  },
+  // ######### WATCH #########
+  watch: {
+    // déclencher une function si les "params" changent
+    $route: async function(to, from) {
+      if (to !== from) {
+        // @ts-ignore
+        this.ResetAll();
+        // ****** DISPATCH ~ ACTIONS ****** //
+        // @ts-ignore
+        await this.$store.formation_module.dispatch('setFormationById', this.form_param);
+        // @ts-ignore
+        await this.$store.formation_module.dispatch('setFormationsByTheme', this.formation_by_id.mysystheme_id || 1);
+    
+        // !TRANSFORMER LES PARAGRAPHS EN HTML
+        // @ts-ignore
+        this.ConvertDataTextToView(this.formation_by_id.programme, 'programme');
+        this.isProgramLoaded = true;
+        // @ts-ignore
+        this.ConvertDataTextToView(this.formation_by_id.objectif, 'objectif');
+        this.isObjectifLoaded = true;
+        
+        // @ts-ignore
+        this.RemoveCurrentFormationObject(this.form_param);
+      } //end if
+    }
+  },
+  // ######### METHODS #########
+  methods: {
+    // DATA MANIPULATION
+    RemoveCurrentFormationObject(formId) {
+      // supprimer la formation actuelle affiché et récupérer le reste
+      this.formations_by_cat = this.formations_by_theme.filter((formation) => {
+        return formation.id !== formId;
+      });
+      //console.log("form by cat ", this.formations_by_cat);
+    },
+    // **** TRANSFORM CONTENT ****
+    TransformContent(textToTransform, symbol, tag, classes, addition) {
+      return textToTransform ? textToTransform.split(symbol).map(function(value, index) {
+        if (index % 2 == 0) {
+          return value;
+        } else {
+          return `<${tag} class="${classes}">${addition}${value}</${tag}>`;
+        }
+      }).join("") : null;
+    },
+    ConvertStringToHtml(textToConvert, domId) {
+      let domGoal = document.getElementById(domId);
+      let newDom = document.createElement('article');
+      newDom.innerHTML = textToConvert ? textToConvert : "(vide)";
+      domGoal.innerHTML = ""; // clean old paragraph
+      domGoal.append(newDom); // append new paragraph
+      // //console.log(domGoal.textContent);
+    },
+    ConvertDataTextToView(originText, domId) {
+      let myText = originText;
+      // remplacer les symboles du paragraph de formation par des tags HTML
+      this.dataTransform.map((trans) => {
+        let converted = this.TransformContent(myText, trans.symbol, trans.tag, trans.classes, trans.addition);
+        myText = converted;
+        //console.log("domId", domId);
+      });
+      // convert transformed text to HTML
+      this.ConvertStringToHtml(myText, domId);
+    },
+    // **** END TRANSFORM CONTENT ****
+    //***************************************************************/
+    ResetAll() {
+      window.scrollTo(0, 0);
+      // récup. NOUVEAU paramètre
+      this.form_param = parseInt(this.$route.params.form_param);
+      // reset variable
+      this.isObjectifLoaded = this.isProgramLoaded = false;
+      // cacher la section 'formationSimilaire'
+      let formaSim = document.getElementById('formationSimilaire');
+      // @ts-ignore
+      formaSim.style.opacity = 0;
+      this.isFormSimShowed = false;
+    },
+    //***************************************************************/
+    // **** UI METHODES ****
+    ScrollUserTo(elemId) {
+      document.getElementById(elemId).scrollIntoView();
+    },
+    DisplayCardOnScroll() {
+      let card = document.getElementById('formationCard');
+      // let formaJumboHeight = document.getElementById('formaSection').offsetHeight;
+      let formaSim = document.getElementById('formationSimilaire');
+      let formaBanner = document.getElementById('formaBanner');
+      let contactezHeight = document.getElementById('contactez').offsetHeight;
+      let detailFormaHeight = document.getElementById('detailFormation').offsetHeight;
+      let FooterHeight = document.getElementById('mysysFooter').offsetHeight;
+
+      let verticalPos = window.scrollY; // récupérer la position de scroll en px
+      let divHeight = detailFormaHeight - formaSim.offsetHeight - contactezHeight - FooterHeight; // récupérer la taille vertical de 'div'
+      //console.log('vert pos : ' + verticalPos + ' div height : ' + divHeight);
+
+      if (screen.width >= 1024) { // fixer 'card' avec les grandes écrans
+        formaBanner.setAttribute('style', 'display: none !important');
+        if (verticalPos > 100 && verticalPos < divHeight) {
+          card.setAttribute("style", "position: fixed; top: 0; opacity: 1; z-index: 10;");
+          // hide formSimilaire on scroll
+          if (!this.isFormSimShowed) {
+            formaSim.setAttribute("style", "opacity: 0");
+          }
+        } else { // laisser 'card' avec sa position d'origine 
+          card.setAttribute("style", "position: absolute; opacity: 1; z-index: 10;");
+        }
+        if (verticalPos > divHeight) {
+          card.setAttribute('style', "opacity: 0; z-index: 0;");
+          // *** show formSimilaire on scroll ***
+          formaSim.setAttribute("style", "opacity: 1");
+          this.isFormSimShowed = true;
+        }
+      } else if (screen.width < 1024) { // laisser 'card' relative avec le jumbotron (position d'origine relative)
+        card.style.position = "relative";
+        // banner formation
+        if (verticalPos > 700 && verticalPos < divHeight) {
+          formaBanner.setAttribute("style", "display: block; position: fixed; bottom: 0;");
+        } else { // laisser 'formaBanner' avec sa position d'origine 
+          formaBanner.setAttribute("style", "display: block; position: relative;");
+        }
+        if (verticalPos > divHeight) {
+          formaBanner.style.display =  "none";
+        }
+        // *** show formSimilaire on scroll ***
+        formaSim.setAttribute("style", "opacity: 1");
+        this.isFormSimShowed = true;
+      } // screen width
+    },
+
+  } // methods
+}
+</script>
+
+
+
+
+

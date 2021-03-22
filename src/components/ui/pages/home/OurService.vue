@@ -1,61 +1,3 @@
-<script>
-import Slick from 'vue-slick';
-
-export default {
-  name: 'OurSevice',
-  components: {
-    Slick
-  },
-  data() {
-    return {
-      slickOptions: {
-        dots: true,
-        arrows: true,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-      } // slick options
-
-    } // return
-  },
-  methods: {
-    beforeUpdate() {
-      if (this.$refs.slick) {
-        this.$refs.slick.destroy();
-      }
-    },
-    updated() {
-      this.$nextTick(function () {
-        if (this.$refs.slick) {
-          this.$refs.slick.create(this.slickOptions);
-        }
-      });
-    },
-    next() {
-      this.$refs.slick.next();
-    },
-    prev() {
-      this.$refs.slick.prev();
-    },
-    reInit() {
-      // Helpful if you have to deal with v-for to update dynamic lists
-      this.$nextTick(() => {
-          this.$refs.slick.reSlick();
-      });
-    },
-  }
-}
-</script>
-
-<style lang="scss">
-  @import '../../../../assets/css/service.scss';
-  @import '/node_modules/slick-carousel/slick/slick.scss';
-</style>
-
-
 <template>
 <div id="service">
   <div class="container-fluid">
@@ -136,3 +78,64 @@ export default {
 
 </div>
 </template>
+
+<style lang="scss">
+  @import '../../../../assets/css/service.scss';
+  @import '/node_modules/slick-carousel/slick/slick.scss';
+</style>
+
+<script>
+import Slick from 'vue-slick';
+
+export default {
+  name: 'OurSevice',
+  components: {
+    Slick
+  },
+  data() {
+    return {
+      slickOptions: {
+        dots: true,
+        arrows: true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+      } // slick options
+
+    } // return
+  },
+  methods: {
+    beforeUpdate() {
+      if (this.$refs.slick) {
+        this.$refs.slick.destroy();
+      }
+    },
+    updated() {
+      this.$nextTick(function () {
+        if (this.$refs.slick) {
+          this.$refs.slick.create(this.slickOptions);
+        }
+      });
+    },
+    next() {
+      this.$refs.slick.next();
+    },
+    prev() {
+      this.$refs.slick.prev();
+    },
+    reInit() {
+      // Helpful if you have to deal with v-for to update dynamic lists
+      this.$nextTick(() => {
+          this.$refs.slick.reSlick();
+      });
+    },
+  }
+}
+</script>
+
+
+
+

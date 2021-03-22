@@ -1,63 +1,6 @@
-<script>
-import { mapActions } from 'vuex';
-import { store } from '../../../../store/formation/index';
-import Theme from './Theme';
-
-export default {
-  name: 'Domaine',
-  components: {
-    Theme
-  },
-  mounted () {
-  }, // MOUNTED
-  computed: {
-    //  main data
-    domaines() { return store.state.domaines; },
-    themes_by_domaine() { return store.state.themes_by_domaine; },
-    //  is loaded
-    is_domaineLoaded() { return store.state.is_domaineLoaded; },
-    is_themeLoaded() { return store.state.is_themeLoaded; },
-    is_themesByDomaineLoaded() { return store.state.is_themesByDomaineLoaded; },
-    // is errors
-    domaineError() { return store.state.domaineError },
-    themeError() { return store.state.themeError },
-    // has errors
-    has_domaineError() { return store.state.has_domaineError },
-    has_themeError() { return store.state.has_themeError },
-  }, // computed
-  methods: {
-    ...mapActions([
-      'FetchDomaineData',
-      'FetchThemeData',
-      'SetThemesByDomaine'
-    ]),
-    handleAction(action, targetId = null) {
-      store.dispatch(action, targetId);
-    },
-    // scroll
-    ScrollLeft(valToScroll) { 
-      let myTab = document.getElementById('myTab');
-      let amount = 0;
-      let scrollInterv = setInterval(function () {
-        myTab.scrollLeft += valToScroll;
-        amount += valToScroll;
-        amount === 200 | amount === -200 && clearInterval(scrollInterv);
-      }, 10);
-    },
-
-  } // METHODS
-}
-</script>
-
-<style lang="scss">
-  @import '../../../../assets/css/domaine.scss';
-</style>
-
 <template>
 <div id="domaine">
-
   <div class="container-fluid py-5">
-
     <div class="main-title">
       <span class="title">Nos Domaines de Formation</span>
     </div>
@@ -72,7 +15,7 @@ export default {
       </button>
       <!-- end-btn-left -->
       <li class="col-lg-6 col-md-6 col-12" :key="`dom${domIndex}`" v-for="(dom, domIndex) in domaines"
-        @click="handleAction('SetThemesByDomaine', dom.id)">
+        @click="handleAction('setThemesByDomaine', dom.id)">
 
         <router-link :class="(domIndex === 0 && 'nav-link active') || 'nav-link'" 
           :id="`domaine${dom.id}-tab`" :to="`#domaine${dom.id}`" data-toggle="tab" role="tab" :aria-controls="dom.id" aria-selected="true">
@@ -82,7 +25,6 @@ export default {
             </span>
           </div>
         </router-link>
-
       </li>
       <!-- button-right -->
       <button class="icon-btn bg-light" id="btnFixedLeft" @click="ScrollLeft(-10)">
@@ -111,14 +53,12 @@ export default {
       <div v-for="(domaine, domIndex) in domaines" :class="(domIndex === 0 && 'tab-pane fade show active') || 'tab-pane fade show hide'" 
           role="tabpanel" :aria-labelledby="`domaine${domIndex}-tab`"
           :key="`domaine${domIndex}`">
-
         <div :id="`domaine${domIndex}`">
           <!-- THEMES -->
           <theme 
             :themes_by_domaine="themes_by_domaine">
           </theme>
           <!-- END-THEMES -->
-
         </div>
         <!-- end-theme -->
       </div>
@@ -146,11 +86,78 @@ export default {
     </div>
     <!-- ERROR .. -->
     <!-- *** END-THEMES *** -->
-
-
-
   </div>
   <!-- end-container-fluid -->
-  
 </div>
 </template>
+
+<style lang="scss">
+  @import '../../../../assets/css/domaine.scss';
+</style>
+
+<script>
+import { mapActions, mapState } from 'vuex';
+import Theme from './Theme';
+
+export default {
+  name: 'Domaine',
+  components: {
+    Theme
+  },
+  mounted () {
+    this.fetchDomaineData
+    console.log();
+  }, //MOUNTED
+  computed: { 
+    ...mapState('formation_module',{
+         //main data
+         domaines: state => state.domaines,
+         themes_by_domaine: state => state.themes_by_domaine,
+         //is loaded
+         is_domaineLoaded: state => state.is_domaineLoaded,
+         is_themeLoaded: state => state.is_themeLoaded,
+         is_themesByDomaineLoaded: state => state.is_themesByDomaineLoaded,
+         // is errors
+         domaineError: state => state.domaineError,
+         themeError: state => state.themeError,
+         //has errors
+         has_domaineError: state => state.domaineError,
+         has_themeError: state => state.has_themeError,
+      }),
+     
+    // domaines() { return this.$store.formation_module.domaines },
+    // themes_by_domaine() { return this.$store.formation_module.state.themes_by_domaine; },
+    
+    // is_domaineLoaded() { return this.$store.formation_module.state.is_domaineLoaded; },
+    // is_themeLoaded() { return this.$store.formation_module.state.is_themeLoaded; },
+    // is_themesByDomaineLoaded() { return this.$store.formation_module.state.is_themesByDomaineLoaded; },
+    // // is errors
+    // domaineError() { return this.$store.formation_module.state.domaineError },
+    // themeError() { return this.$store.formation_module.state.themeError },
+    // // has errors
+    // has_domaineError() { return this.$store.formation_module.state.has_domaineError },
+    // has_themeError() { return this.$store.formation_module.state.has_themeError },
+  }, // computed
+  methods: {
+    ...mapActions('formation_module',[
+      'fetchDomaineData',
+      'fetchThemeData',
+      'setThemesByDomaine'
+    ]),
+    handleAction(action, targetId = null) {
+      this.$store.formation_module.dispatch(action, targetId);
+    },
+    // scroll
+    ScrollLeft(valToScroll) { 
+      let myTab = document.getElementById('myTab');
+      let amount = 0;
+      let scrollInterv = setInterval(function () {
+        myTab.scrollLeft += valToScroll;
+        amount += valToScroll;
+        amount === 200 | amount === -200 && clearInterval(scrollInterv);
+      }, 10);
+    },
+
+  } // METHODS
+}
+</script>

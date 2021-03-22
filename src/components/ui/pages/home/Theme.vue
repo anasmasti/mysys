@@ -1,38 +1,3 @@
-<script>
-export default {
-  components: {
-  },
-  name: 'Theme',
-  data () {
-    return {
-      begin: 0, end: 7,
-    }
-  },
-  props: {
-    themes_by_domaine: {type: Array, required: true},
-  },
-  methods: {
-    // UI Events
-    ShowMoreLess(begin, end) {
-      let moreBtn = document.getElementById('showMoreBtn');
-      if (begin === 0 && end === 7) {
-        this.begin = 0;
-        this.end = 100;
-        moreBtn.innerHTML = "△ Afficher moins";
-        document.getElementById('setShadow').classList.remove("show_more_shadow");
-      } else if (begin === 0 && end === 100) {
-        this.begin = 0;
-        this.end = 7;
-        moreBtn.innerHTML = "▽ Afficher plus";
-        document.getElementById('setShadow').classList.add("show_more_shadow");
-      }
-      // scroll to (top of) myTap after loading more items
-      document.getElementById('myTab').scrollIntoView();
-    },
-  }
-}
-</script>
-
 <template>
   <div id="themes">
   
@@ -79,3 +44,41 @@ export default {
 <style lang="scss">
   @import '../../../../assets/css/domaine';
 </style>
+
+<script>
+export default {
+  components: {
+  },
+  name: 'Theme',
+  data () {
+    return {
+      begin: 0, end: 7,
+    }
+  },
+  props: {
+    themes_by_domaine: {type: Array, required: true},
+  },
+  methods: {
+    // UI Events
+    ShowMoreLess(begin, end) {
+      let moreBtn = document.getElementById('showMoreBtn');
+      if (begin === 0 && end === 7) {
+        this.begin = 0;
+        this.end = 100;
+        moreBtn.innerHTML = "△ Afficher moins";
+        document.getElementById('setShadow').classList.remove("show_more_shadow");
+      } else if (begin === 0 && end === 100) {
+        this.begin = 0;
+        this.end = 7;
+        moreBtn.innerHTML = "▽ Afficher plus";
+        document.getElementById('setShadow').classList.add("show_more_shadow");
+      }
+      // scroll to (top of) myTap after loading more items
+      document.getElementById('myTab').scrollIntoView();
+    },
+  }
+}
+</script>
+
+
+

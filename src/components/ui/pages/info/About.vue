@@ -109,10 +109,6 @@ export default {
   <div class="card-body ">
     <Partenaire/>
   </div></div></div>  
-   
-
-
-
 </div>
 </div>
 </template>

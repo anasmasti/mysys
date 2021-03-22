@@ -1,6 +1,24 @@
+<template>
+  <div id="app">
+    <router-view></router-view>
+    <Footer />
+
+    <a href="#" @click.prevent="ScrollToTopEvent">
+      <i class="material-icons" id="back_to_top">arrow_upward</i>
+    </a>
+    
+  </div>
+</template>
+
+<style lang="scss">
+  @import './assets/css/_style.scss';
+  @import './assets/css/loading.scss';
+  @import './assets/css/modal.scss';
+</style>
+
 <script>
+import { mapState, mapActions } from 'vuex';
 import Footer from './components/ui/shared/common/Footer.vue';
-import { store } from './store/formation/index'
 // import { mapActions } from 'vuex';
 
 export default {
@@ -11,22 +29,31 @@ export default {
   async created() {
     window.addEventListener('scroll', this.DisplayBackTopOnScroll);
     this.ScrollToTopEvent();
-
+   this.fetchDomaineData
     // ###### DISPATCH ~ ACTIONS ###### //
-    await store.dispatch('FetchDomaineData');
-    await store.dispatch('FetchThemeData');
-    await store.dispatch('SetThemesByDomaine');
+    // await this.$store.formation_module.dispatch('fetchDomaineData');
+    // await this.$store.formation_module.dispatch('fetchThemeData');
+    // await this.$store.formation_module.dispatch('setThemesByDomaine');
     // await store.dispatch('FetchFormationData');
     // await store.dispatch('SetFormationsByTheme');
   },
   computed: {
-    domaines() { return store.state.domaines; },
-    themes() { return store.state.themes; },
-    formations() { return store.state.formations; },
+    ...mapState('formation_module',{
+      domaines: state => state.domaines,
+      themes: state => state.themes,
+      formations: state => state.formations,
+    })
+    // domaines() { return this.$store.formation_module.state.domaines; },
+    // themes() { return this.$store.formation_module.state.themes; },
+    // formations() { return this.$store.formation_module.state.formations; },
+  
   },
   methods: {
-    // ...mapActions([
-    // ]),
+    ...mapActions('formation_module',[
+      'fetchDomaineData',
+      'fetchThemeData',
+      'setThemesByDomaine'
+    ]),
     // **** UI EVENTS ****
     ScrollToTopEvent() {
       document.documentElement.scrollTop = document.body.scrollTop = 0;
@@ -39,20 +66,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  @import './assets/css/_style.scss';
-  @import './assets/css/loading.scss';
-  @import './assets/css/modal.scss';
-</style>
 
-<template>
-  <div id="app">
-    <router-view></router-view>
-    <Footer />
 
-    <a href="#" @click.prevent="ScrollToTopEvent">
-      <i class="material-icons" id="back_to_top">arrow_upward</i>
-    </a>
-    
-  </div>
-</template>
+

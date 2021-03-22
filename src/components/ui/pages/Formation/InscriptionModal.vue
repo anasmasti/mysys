@@ -1,42 +1,3 @@
-<script>
-export default {
-  name: 'InscriptionModal',
-  props: {
-    formation: { type: [Object, Array], required: true }
-  },
-  data() {
-    return {
-      nom: undefined,
-      prenom: undefined,
-      type: undefined,
-      tele: undefined,
-      email: undefined,
-      ville: undefined,
-      mysysformation_id: undefined
-    }
-  }, // data
-  methods: {
-    HandleRegister() {
-      this.axios.post('/api/mysys/participants', {
-        nom: this.nom,
-        prenom: this.prenom,
-        type: this.type,
-        tele: this.tele,
-        email: this.email,
-        ville: this.ville,
-        mysysformation_id: this.mysysformation_id
-      })
-      .then(() => {
-        alert("Inscription effectué avec succès !");
-      })
-      .catch((err) => {
-        alert(err);
-      });
-    }
-  }
-}
-</script>
-
 <template>
   <div id="inscriptionModal">
     
@@ -119,3 +80,43 @@ export default {
     
   </div>
 </template>
+
+<script>
+export default {
+  name: 'InscriptionModal',
+  props: {
+    formation: { type: [Object, Array], required: true }
+  },
+  data() {
+    return {
+      nom: undefined,
+      prenom: undefined,
+      type: undefined,
+      tele: undefined,
+      email: undefined,
+      ville: undefined,
+      mysysformation_id: undefined
+    }
+  }, // data
+  methods: {
+    HandleRegister() {
+      this.axios.post('/api/mysys/participants', {
+        nom: this.nom,
+        prenom: this.prenom,
+        type: this.type,
+        tele: this.tele,
+        email: this.email,
+        ville: this.ville,
+        mysysformation_id: this.mysysformation_id
+      })
+      .then(() => {
+        alert("Inscription effectué avec succès !");
+      })
+      .catch((err) => {
+        alert(err);
+      });
+    }
+  }
+}
+</script>
+

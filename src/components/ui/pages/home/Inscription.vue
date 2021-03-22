@@ -1,58 +1,3 @@
-<script>
-
-export default {
-  name: 'Inscription',
-	data () {
-		return {
-			nom: null, prenom: null, tele: null, email: null, type: null, ville: null,
-			domaines: [],
-			themes: [],
-			themes_by_domaine: [],
-			formations_by_theme: [],
-      domaineId: null,
-      themeId: null,
-      formationId: null,
-      loading: false,
-		}
-	},
-  created() {
-    this.FetchAPI('/api/mysys/domaines', '/api/mysys/themes', '/api/mysys/formations');
-  },
-	methods: {
-    // ****** FETCH DATA ******
-    async FetchAPI(dom_url, thm_url, form_url) {
-      // get domaines
-      await this.axios.get(dom_url).then(res => this.domaines = res.data);
-      // initialize the domaineId
-      // get themes
-      await this.axios.get(thm_url).then(res => this.themes = res.data);
-      // get formations
-      await this.axios.get(form_url).then(res => this.formations = res.data);
-      
-      this.loading = true;
-    },
-    // EVENT TRIGGER
-    FindThemesByDomaine(domaineId) {
-      this.themes_by_domaine = this.themes.filter((themes) => {
-        return domaineId && themes.mysysdomain_id === domaineId;
-      });
-      //console.log("Find themes_by_domaine : ", this.themes_by_domaine);
-    },
-    FindFormationByTheme(themeId) {
-      this.formations_by_theme = this.formations.filter((formation) => {
-        return themeId && formation.mysystheme_id === themeId;
-      });
-    }
-	}
-}
-</script>
-
-<style lang="scss">
-  @import '../../../../assets/css/inscription.scss';
-</style>
-
-
-
 <template>
 <div id="inscription">
   <div class="modal fade" id="inscriptionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -134,3 +79,59 @@ export default {
 
 </div>
 </template>
+
+<script>
+
+export default {
+  name: 'Inscription',
+	data () {
+		return {
+			nom: null, prenom: null, tele: null, email: null, type: null, ville: null,
+			domaines: [],
+			themes: [],
+			themes_by_domaine: [],
+			formations_by_theme: [],
+      domaineId: null,
+      themeId: null,
+      formationId: null,
+      loading: false,
+		}
+	},
+  created() {
+    this.FetchAPI('/api/mysys/domaines', '/api/mysys/themes', '/api/mysys/formations');
+  },
+	methods: {
+    // ****** FETCH DATA ******
+    async FetchAPI(dom_url, thm_url, form_url) {
+      // get domaines
+      await this.axios.get(dom_url).then(res => this.domaines = res.data);
+      // initialize the domaineId
+      // get themes
+      await this.axios.get(thm_url).then(res => this.themes = res.data);
+      // get formations
+      await this.axios.get(form_url).then(res => this.formations = res.data);
+      
+      this.loading = true;
+    },
+    // EVENT TRIGGER
+    FindThemesByDomaine(domaineId) {
+      this.themes_by_domaine = this.themes.filter((themes) => {
+        return domaineId && themes.mysysdomain_id === domaineId;
+      });
+      //console.log("Find themes_by_domaine : ", this.themes_by_domaine);
+    },
+    FindFormationByTheme(themeId) {
+      this.formations_by_theme = this.formations.filter((formation) => {
+        return themeId && formation.mysystheme_id === themeId;
+      });
+    }
+	}
+}
+</script>
+
+<style lang="scss">
+  @import '../../../../assets/css/inscription.scss';
+</style>
+
+
+
