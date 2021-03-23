@@ -17,7 +17,7 @@
 </style>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 import Footer from './components/ui/shared/common/Footer.vue';
 // import { mapActions } from 'vuex';
 
@@ -29,16 +29,15 @@ export default {
   async created() {
     window.addEventListener('scroll', this.DisplayBackTopOnScroll);
     this.ScrollToTopEvent();
-   this.fetchDomaineData
     // ###### DISPATCH ~ ACTIONS ###### //
-    // await this.$store.formation_module.dispatch('fetchDomaineData');
-    // await this.$store.formation_module.dispatch('fetchThemeData');
-    // await this.$store.formation_module.dispatch('setThemesByDomaine');
+    await this.$store.dispatch('formationStore/fetchDomaineData');
+    await this.$store.dispatch('formationStore/fetchThemeData');
+    await this.$store.dispatch('formationStore/setThemesByDomaine');
     // await store.dispatch('FetchFormationData');
     // await store.dispatch('SetFormationsByTheme');
   },
   computed: {
-    ...mapState('formation_module',{
+    ...mapState('formationStore',{
       domaines: state => state.domaines,
       themes: state => state.themes,
       formations: state => state.formations,
@@ -49,11 +48,6 @@ export default {
   
   },
   methods: {
-    ...mapActions('formation_module',[
-      'fetchDomaineData',
-      'fetchThemeData',
-      'setThemesByDomaine'
-    ]),
     // **** UI EVENTS ****
     ScrollToTopEvent() {
       document.documentElement.scrollTop = document.body.scrollTop = 0;

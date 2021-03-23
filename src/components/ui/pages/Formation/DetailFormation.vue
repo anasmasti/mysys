@@ -221,6 +221,7 @@
   @import '../../../../assets/css/detailformation.scss';
 </style>
 <script>
+import { mapState } from 'vuex'
 import Contactez from '../../shared/common/Contactez.vue'
 import NavBarForDFormation from '../../shared/common/NavBarForDFormation.vue'
 import FormationSimilaire from './FormationSimilaire.vue'
@@ -277,10 +278,10 @@ export default {
     window.addEventListener('scroll', this.DisplayCardOnScroll);
 
     // ****** DISPATCH ~ ACTIONS ****** //
-    await this.$store.formation_module.dispatch('fetchThemeData');
-    await this.$store.formation_module.dispatch('fetchFormationData');
-    await this.$store.formation_module.dispatch('setFormationById', this.form_param);
-    await this.$store.formation_module.dispatch('setFormationsByTheme', this.formation_by_id.mysystheme_id);
+    await this.$store.dispatch('formationStore/fetchThemeData');
+    await this.$store.dispatch('formationStore/fetchFormationData');
+    await this.$store.dispatch('formationStore/setFormationById', this.form_param);
+    await this.$store.dispatch('formationStore/setFormationsByTheme', this.formation_by_id.mysystheme_id);
     
     
     // !TRANSFORMER LES PARAGRAPHS EN HTML
@@ -294,12 +295,20 @@ export default {
   },
   // ######### COMPUTED ######### 
   computed: {
-    // *** data from state ***
-    formation_by_id() { return this.$store.formation_module.state.formation_by_id; },
-    formations_by_theme() { return this.$store.modules.formation_module.state.formations_by_theme; },
-    // > is data loaded
-    is_themeLoaded() { return this.$store.formation_module.state.is_themeLoaded; },
-    is_formationsByThemeLoaded() { return this.$store.formation_module.state.is_formationsByThemeLoaded; }
+     ...mapState('formationStore',{
+         // *** data from state ***
+        formation_by_id: state => state.formation_by_id,
+        formations_by_theme: state => state.formations_by_theme,
+        // > is data loaded
+        is_themeLoaded: state => state.is_themeLoaded,
+        is_formationsByThemeLoaded: state => state.is_formationsByThemeLoaded,
+    })
+
+    // // *** data from state ***
+    // formation_by_id() { return this.$store.state.formation_by_id; },
+    // formations_by_theme() { return this.$store.modules.state.formations_by_theme; },
+    // // > is data loaded
+    // is_themeLoaded() { return this.$store.state.is_themeLoaded; },
   },
   // ######### WATCH #########
   watch: {
@@ -310,9 +319,9 @@ export default {
         this.ResetAll();
         // ****** DISPATCH ~ ACTIONS ****** //
         // @ts-ignore
-        await this.$store.formation_module.dispatch('setFormationById', this.form_param);
+        await this.$store.dispatch('formationStore/setFormationById', this.form_param);
         // @ts-ignore
-        await this.$store.formation_module.dispatch('setFormationsByTheme', this.formation_by_id.mysystheme_id || 1);
+        await this.$store.dispatch('formationStore/setFormationsByTheme', this.formation_by_id.mysystheme_id || 1);
     
         // !TRANSFORMER LES PARAGRAPHS EN HTML
         // @ts-ignore

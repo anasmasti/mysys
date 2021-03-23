@@ -43,14 +43,14 @@ export default {
   mounted() {
   },
   computed: {
-    ...mapState({
-       domaines: state => state.formation_module.domaines,
-       themes: state => state.formation_module.themes,
-       formations: state => state.formation_module.formations,
+    ...mapState('formationStore',{
+       domaines: state => state.domaines,
+       themes: state => state.themes,
+       formations: state => state.formations,
     })
-    // domaines() { return this.$store.formation_module.domaines; },
-    // themes() { return this.$store.formation_module.themes; },
-    // formations() { return this.$store.formation_module.formations; }
+    // domaines() { return this.$store.formationStore.domaines; },
+    // themes() { return this.$store.formationStore.themes; },
+    // formations() { return this.$store.formationStore.formations; }
   },
   methods: {
     Search() {

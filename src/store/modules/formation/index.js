@@ -5,10 +5,10 @@ import { state } from './state'
 
 export const formationStore = {
   namespaced: true,
-  state: state,
-  getters: getters,
-  mutations: mutations, //mutations
-  actions: actions,
+  state, 
+  getters,
+  mutations, //mutations
+  actions,
   //METHODS
   methods: {
     //UPDATE WINDOW'S TITLE
@@ -17,3 +17,5 @@ export const formationStore = {
     }
   }
 };
+
+export default formationStore

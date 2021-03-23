@@ -15,7 +15,7 @@
       </button>
       <!-- end-btn-left -->
       <li class="col-lg-6 col-md-6 col-12" :key="`dom${domIndex}`" v-for="(dom, domIndex) in domaines"
-        @click="handleAction('setThemesByDomaine', dom.id)">
+        @click="handleAction('formationStore/setThemesByDomaine', dom.id)">
 
         <router-link :class="(domIndex === 0 && 'nav-link active') || 'nav-link'" 
           :id="`domaine${dom.id}-tab`" :to="`#domaine${dom.id}`" data-toggle="tab" role="tab" :aria-controls="dom.id" aria-selected="true">
@@ -96,7 +96,7 @@
 </style>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapState } from 'vuex';
 import Theme from './Theme';
 
 export default {
@@ -105,11 +105,10 @@ export default {
     Theme
   },
   mounted () {
-    this.fetchDomaineData
-    console.log();
+    // console.log(domaines);
   }, //MOUNTED
   computed: { 
-    ...mapState('formation_module',{
+    ...mapState('formationStore',{
          //main data
          domaines: state => state.domaines,
          themes_by_domaine: state => state.themes_by_domaine,
@@ -125,27 +124,22 @@ export default {
          has_themeError: state => state.has_themeError,
       }),
      
-    // domaines() { return this.$store.formation_module.domaines },
-    // themes_by_domaine() { return this.$store.formation_module.state.themes_by_domaine; },
+    // domaines() { return this.$store.formationStore.domaines },
+    // themes_by_domaine() { return this.$store.formationStore.state.themes_by_domaine; },
     
-    // is_domaineLoaded() { return this.$store.formation_module.state.is_domaineLoaded; },
-    // is_themeLoaded() { return this.$store.formation_module.state.is_themeLoaded; },
-    // is_themesByDomaineLoaded() { return this.$store.formation_module.state.is_themesByDomaineLoaded; },
+    // is_domaineLoaded() { return this.$store.formationStore.state.is_domaineLoaded; },
+    // is_themeLoaded() { return this.$store.formationStore.state.is_themeLoaded; },
+    // is_themesByDomaineLoaded() { return this.$store.formationStore.state.is_themesByDomaineLoaded; },
     // // is errors
-    // domaineError() { return this.$store.formation_module.state.domaineError },
-    // themeError() { return this.$store.formation_module.state.themeError },
+    // domaineError() { return this.$store.formationStore.state.domaineError },
+    // themeError() { return this.$store.formationStore.state.themeError },
     // // has errors
-    // has_domaineError() { return this.$store.formation_module.state.has_domaineError },
-    // has_themeError() { return this.$store.formation_module.state.has_themeError },
+    // has_domaineError() { return this.$store.formationStore.state.has_domaineError },
+    // has_themeError() { return this.$store.formationStore.state.has_themeError },
   }, // computed
   methods: {
-    ...mapActions('formation_module',[
-      'fetchDomaineData',
-      'fetchThemeData',
-      'setThemesByDomaine'
-    ]),
     handleAction(action, targetId = null) {
-      this.$store.formation_module.dispatch(action, targetId);
+      this.$store.dispatch(action, targetId);
     },
     // scroll
     ScrollLeft(valToScroll) { 
