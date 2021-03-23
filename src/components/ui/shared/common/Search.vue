@@ -48,9 +48,6 @@ export default {
        themes: state => state.themes,
        formations: state => state.formations,
     })
-    // domaines() { return this.$store.formationStore.domaines; },
-    // themes() { return this.$store.formationStore.themes; },
-    // formations() { return this.$store.formationStore.formations; }
   },
   methods: {
     Search() {

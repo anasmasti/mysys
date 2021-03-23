@@ -121,6 +121,10 @@
 </div>
 </template>
 
+<style lang="scss">
+  @import '../../../../assets/css/allformation.scss';
+</style>
+
 <script>
 import NavBar from '../../shared/common/NavBar.vue'
 import FormationCard from '../../shared/FormationCard.vue'
@@ -179,9 +183,6 @@ export default {
     }
   },
   computed: {
-    // assigner les id initiales à partir d'URL ou des données array
-    // currDomaineId() { return this.domaine_param || null; },
-    // currThemeId() { return this.theme_param || null; },
     ...mapState('formationStore',{
          // *** data from state ***
     domaines: state => state.domaines,
@@ -207,14 +208,10 @@ export default {
     themeError: state => state.themeError,
     formationError: state => state.formationError,
     })
- 
   },
   watch: {
   },
   methods: {
-    // ...mapActions([
-    //  'formationStore/setFormationsByTheme',
-    // ]),
     async handleAction(action, targetId = null) {
       await this.$store.dispatch(action, targetId);
     },
@@ -242,8 +239,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  @import '../../../../assets/css/allformation.scss';
-</style>
+
 
 

@@ -43,19 +43,6 @@ export default {
     category: String,
     isLoaded: Boolean
   },
-  created() {
-    // this.form_param = this.$route.params.form_param;
-    // this.RemoveCurrentFormationObject(this.form_param)
-  },
-  watch: {
-    // $route: function(to, from) {
-    //   if (to !== from) {
-    //     this.form_param = this.$route.params.form_param;
-    //     //console.log("form param sim watch :", this.form_param);
-    //     this.RemoveCurrentFormationObject(this.form_param)
-    //   }
-    // },
-  },
   methods: {
   }
 }

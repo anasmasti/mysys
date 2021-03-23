@@ -104,9 +104,6 @@ export default {
   components: {
     Theme
   },
-  mounted () {
-    // console.log(domaines);
-  }, //MOUNTED
   computed: { 
     ...mapState('formationStore',{
          //main data
@@ -123,19 +120,6 @@ export default {
          has_domaineError: state => state.domaineError,
          has_themeError: state => state.has_themeError,
       }),
-     
-    // domaines() { return this.$store.formationStore.domaines },
-    // themes_by_domaine() { return this.$store.formationStore.state.themes_by_domaine; },
-    
-    // is_domaineLoaded() { return this.$store.formationStore.state.is_domaineLoaded; },
-    // is_themeLoaded() { return this.$store.formationStore.state.is_themeLoaded; },
-    // is_themesByDomaineLoaded() { return this.$store.formationStore.state.is_themesByDomaineLoaded; },
-    // // is errors
-    // domaineError() { return this.$store.formationStore.state.domaineError },
-    // themeError() { return this.$store.formationStore.state.themeError },
-    // // has errors
-    // has_domaineError() { return this.$store.formationStore.state.has_domaineError },
-    // has_themeError() { return this.$store.formationStore.state.has_themeError },
   }, // computed
   methods: {
     handleAction(action, targetId = null) {

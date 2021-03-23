@@ -303,35 +303,24 @@ export default {
         is_themeLoaded: state => state.is_themeLoaded,
         is_formationsByThemeLoaded: state => state.is_formationsByThemeLoaded,
     })
-
-    // // *** data from state ***
-    // formation_by_id() { return this.$store.state.formation_by_id; },
-    // formations_by_theme() { return this.$store.modules.state.formations_by_theme; },
-    // // > is data loaded
-    // is_themeLoaded() { return this.$store.state.is_themeLoaded; },
   },
   // ######### WATCH #########
   watch: {
     // déclencher une function si les "params" changent
     $route: async function(to, from) {
       if (to !== from) {
-        // @ts-ignore
         this.ResetAll();
         // ****** DISPATCH ~ ACTIONS ****** //
-        // @ts-ignore
         await this.$store.dispatch('formationStore/setFormationById', this.form_param);
         // @ts-ignore
         await this.$store.dispatch('formationStore/setFormationsByTheme', this.formation_by_id.mysystheme_id || 1);
     
         // !TRANSFORMER LES PARAGRAPHS EN HTML
-        // @ts-ignore
         this.ConvertDataTextToView(this.formation_by_id.programme, 'programme');
         this.isProgramLoaded = true;
-        // @ts-ignore
         this.ConvertDataTextToView(this.formation_by_id.objectif, 'objectif');
         this.isObjectifLoaded = true;
         
-        // @ts-ignore
         this.RemoveCurrentFormationObject(this.form_param);
       } //end if
     }
@@ -344,7 +333,6 @@ export default {
       this.formations_by_cat = this.formations_by_theme.filter((formation) => {
         return formation.id !== formId;
       });
-      //console.log("form by cat ", this.formations_by_cat);
     },
     // **** TRANSFORM CONTENT ****
     TransformContent(textToTransform, symbol, tag, classes, addition) {
@@ -362,7 +350,6 @@ export default {
       newDom.innerHTML = textToConvert ? textToConvert : "(vide)";
       domGoal.innerHTML = ""; // clean old paragraph
       domGoal.append(newDom); // append new paragraph
-      // //console.log(domGoal.textContent);
     },
     ConvertDataTextToView(originText, domId) {
       let myText = originText;

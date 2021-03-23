@@ -25,7 +25,6 @@
     <hr />
   </div>
   <contactez></contactez>
-  
 </div>
 </template>
 
@@ -40,7 +39,6 @@ import Expertise from './Expertise';
 import Mission from './Mission';
 import NavBarForHome from '../../shared/common/NavBarForHome.vue';
 import Contactez from '../../shared/common/Contactez.vue';
-
 
 export default {
   name: 'Home',
