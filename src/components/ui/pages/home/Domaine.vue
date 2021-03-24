@@ -102,7 +102,7 @@ import Theme from './Theme';
 export default {
   name: 'Domaine',
   components: {
-    Theme
+    Theme 
   },
   computed: { 
     ...mapState('formationStore',{
