@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../components/ui/pages/home/Home.vue'
-import About from '../components/ui/pages/info/About.vue'
-import Contact from '../components/ui/pages/info/Contact.vue'
-import AllServices from '../components/ui/pages/info/AllServices.vue'
-import AllFormation from '../components/ui/pages/Formation/AllFormation.vue';
-import DetailFormation from '../components/ui/pages/Formation/DetailFormation.vue';
+
 Vue.use(VueRouter)
+
+const Home = () => import('../components/ui/pages/home/Home.vue')
+const About = () => import('../components/ui/pages/info/About.vue')
+const Contact = () => import('../components/ui/pages/info/Contact.vue')
+const AllServices = () => import('../components/ui/pages/info/AllServices.vue')
+const AllFormation = () => import('../components/ui/pages/Formation/AllFormation.vue')
+const DetailFormation = () => import('../components/ui/pages/Formation/DetailFormation.vue')
 
 const routes = [
     { path: '/formation-by-theme/:theme_param/:domaine_param', component: AllFormation, name: 'allformation' },
@@ -24,4 +26,5 @@ const router = new VueRouter({
   mode: 'history',
   routes
 })
+
 export default router
