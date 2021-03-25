@@ -1,12 +1,9 @@
 <template>
-
-<div id="detailFormation">
+ <div id="detailFormation">
   <NavBarForDFormation/>
   <div class="container-fluid m-0 p-0">
     <section class="formation-section bg_dark" id="formaSection">
-
       <div class="row pt-4">
-
         <div class="col-xl-8 col-lg-8 col-md-7 col-12 w-100 pr-lg-5 pr-md-5 pr-0 py-5">
           <span :class="formation_by_id.certif ? 'badge badge-success my-3' : ''">
             {{ formation_by_id.certif ? "• Certificat disponible" : "" }}
@@ -47,8 +44,8 @@
           </div>
           <span class="badge badge-primary mt-3">+ 52 participants inscrits</span>
           <div class="w-100 mt-2">
-            <button class="btn btn-light font_sm btn-sm ml-0"  data-target="#inscriptionModal44" data-toggle="modal">Partager <i class="fa fa-share"></i></button>
-            <button @click="ScrollUserTo('programme')" class="btn btn-light font_sm btn-sm ml-0">Voir le programme</button>
+            <button class="btn btn-outline-light font_sm btn-sm ml-0"  data-target="#inscriptionModal44" data-toggle="modal">Partager <i class="fa fa-share"></i></button>
+            <button @click="ScrollUserTo('programme')" class="btn btn-outline-light font_sm btn-sm ml-0">Voir le programme</button>
           </div>
         </div>
 
@@ -77,8 +74,8 @@
                 </small>
               </span>
               <!-- <div class="d-flex"> -->
-                <button class="btn btn-primary btn-block btn-lg mx-0" data-target="#inscriptionModal2" data-toggle="modal">S'inscrire</button>
-                <router-link to="/contact" class="btn btn-outline-secondary btn-block btn-lg mx-0">Contacter</router-link>
+                <button class="btn btn-outline-primary btn-block btn-lg mx-0" data-target="#inscriptionModal2" data-toggle="modal">S'inscrire</button>
+                <router-link to="/contact" class="btn btn-outline-dark btn-block btn-lg mx-0">Contacter</router-link>
               <!-- </div> -->
 
               <div class="w-100 my-3">
@@ -105,23 +102,6 @@
                     {{ formation_by_id.prerequisite || "Non" }}
                   </small>
                 </span>
-
-
-                <!-- <div class="d-flex flex-wrap d-xl-block d-lg-block d-sm-none">
-                  <h6 class="text_bold mt-4">Formations Similaires :</h6>
-                  <div class="col-12 text-light rounded m-1" 
-                    v-bind:style="{background: 'linear-gradient(180deg, rgba(1,1,1,.3) 0%, rgba(1,1,1,.2) 100%),' + 'url(' + forbycat.url_img + '), no-repeat', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}"
-                    v-for="forbycat in formations_by_cat" :key="forbycat.id">
-                    <div class="text-center p-2">
-                      <router-link :to="{name: 'detailformation', params: { form_param: forbycat.id } }">
-                        <h6 class="text_bold text-light mb-0"> {{forbycat.name}}</h6>
-                      </router-link>
-                      <span class="font-weight-light font-s2 p-0">{{ forbycat.description ? forbycat.description.substring(0, 50)+"..." : "--" }}</span>
-                    </div>
-                    
-                  </div>
-                </div> -->
-      
               </div>
             </div>
 
@@ -133,17 +113,11 @@
           </div>
         </div>
         <!-- end-col -->
-        
-
       </div>
       <!-- end-row -->
-      
     </section>
     <!-- end-formation-section -->
-
   </div>
-  <!-- end-container-fluid -->
-
 
   <!-- container-fluid -->
   <div class="container-fluid py-4">
@@ -167,11 +141,9 @@
     <div class="row px-xl-5 px-md-5 px-sm-4 px-4">
       <div class="col-xl-7 col-lg-7 col-md-12 col-12 mb-5 pr-3" id="programme">
         <!-- programme convertis -->
-        
         <div v-if="!isProgramLoaded" class="loading_sm">
           <img class="loading_img" :src="require('../../../../assets/img/loading2.gif')" alt="loading ui">
         </div>
-        
       </div>
     </div>
   </div>
@@ -227,7 +199,6 @@ import NavBarForDFormation from '../../shared/common/NavBarForDFormation.vue'
 import FormationSimilaire from './FormationSimilaire.vue'
 import InscriptionModal from './InscriptionModal.vue'
 import SocialShareModal from './SocialShareModal.vue'
-
 export default {
   name: 'DetailFormation',
   components: {
@@ -273,10 +244,9 @@ export default {
   },
   // ######### CREATED #########
   async mounted() {
-    document.title = "Formation en ...";
+    document.title = "Chargement...";
     window.scrollTo(0, 0);
     window.addEventListener('scroll', this.DisplayCardOnScroll);
-
     // ****** DISPATCH ~ ACTIONS ****** //
     await this.$store.dispatch('formationStore/fetchThemeData');
     await this.$store.dispatch('formationStore/fetchFormationData');
@@ -290,7 +260,6 @@ export default {
     this.ConvertDataTextToView(this.formation_by_id.objectif, 'objectif');
     this.isObjectifLoaded = true;
     this.RemoveCurrentFormationObject(this.form_param);
-
     document.title = `${this.formation_by_id.name} • ${this.formation_by_id.description.substring(0, 50)}...`;
   },
   // ######### COMPUTED ######### 
@@ -389,11 +358,9 @@ export default {
       let contactezHeight = document.getElementById('contactez').offsetHeight;
       let detailFormaHeight = document.getElementById('detailFormation').offsetHeight;
       let FooterHeight = document.getElementById('mysysFooter').offsetHeight;
-
       let verticalPos = window.scrollY; // récupérer la position de scroll en px
       let divHeight = detailFormaHeight - formaSim.offsetHeight - contactezHeight - FooterHeight; // récupérer la taille vertical de 'div'
       //console.log('vert pos : ' + verticalPos + ' div height : ' + divHeight);
-
       if (screen.width >= 1024) { // fixer 'card' avec les grandes écrans
         formaBanner.setAttribute('style', 'display: none !important');
         if (verticalPos > 100 && verticalPos < divHeight) {
@@ -427,10 +394,10 @@ export default {
         this.isFormSimShowed = true;
       } // screen width
     },
-
   } // methods
 }
 </script>
+
 
 
 

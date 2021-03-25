@@ -2,35 +2,40 @@
 <div id="home" class="home">
   <div class="bg_jumbo">
     <nav-bar-for-home></nav-bar-for-home>
-    <jumbotron></jumbotron>
+    <landing/>
   </div>
 
-  <domaine></domaine>
-  <our-service></our-service>
+  <domaine/>
+  <our-service/>
 
-  <div class="d-flex flex-wrap">
+  <div class="d-flex flex-wrap py-5">
     <div class="col-12 col-lg-6 col-xl-6">
-      <expertise></expertise>
+      <expertise/>
     </div>
     <div class="col-12 col-lg-6 col-xl-6">
-      <mission></mission>
+      <mission/>
     </div>
   </div>
+ <div class="pt-5">
+    <partenaire/>
+ </div>
+ 
+  <div class="py-5">
+     <chiffre/>
+  </div>
+ 
+  <client/>
 
-  <partenaire></partenaire>
-  <chiffre></chiffre>
-  <client></client>
-
-  <div class="line bg_light_2 py-4">
+  <div class="line bg_light_2 py-5">
     <hr />
   </div>
-  <contactez></contactez>
+  <contactez/>
 </div>
 </template>
 
 <script>
 import Domaine from './Domaine';
-import Jumbotron from './Jumbotron';
+import Landing from './Landing';
 import OurService from './OurService';
 import Chiffre from './Chiffre';
 import Client from './Client';
@@ -45,7 +50,7 @@ export default {
   components: {
     NavBarForHome,
     Domaine,
-    Jumbotron,
+    Landing,
     OurService,
     Partenaire,
     Chiffre,

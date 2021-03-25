@@ -1,7 +1,7 @@
 <template>
 <div>
   <!-- <img class="navbar-brand" height="60" src="../../assets/img/mysys-logo.png" alt="mysys-logo"> -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-transparent border-0 text_light p-3">
+  <nav class="navbar navbar-expand-md navbar-dark bg-transparent border-0 text_light p-3 mx-lg-4">
     <router-link class="navbar-brand" to="#">
       <img class="navbar-brand" height="35" src="../../../../assets/img/logos/logo_light.png" alt="mysys-logo">
     </router-link>

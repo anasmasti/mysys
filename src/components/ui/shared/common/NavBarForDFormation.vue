@@ -1,7 +1,7 @@
 <template>
 <div>
-  <nav class="navbar navbar-expand-md navbar-dark bg-primary border-0 text_light navforformation">
-    <router-link class="navbar-brand" to="#">
+  <nav class="navbar navbar-expand-md navbar-dark bg-transparent border-0 text_light navforformation mx-lg-4">
+    <router-link class="navbar-brand" to="/">
       <img class="navbar-brand" height="35" src="../../../../assets/img/logos/logo_light.png" alt="mysys-logo">
     </router-link>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,7 +19,7 @@
       </ul>
       <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap mr-3">
         <li class="nav-item active" data-toggle="collapse" data-target=".navbar-collapse.show">
-          <a class="nav-link" data-target="#inscriptionModal33" data-toggle="modal"><i class="fa fa-at"></i> S'Inscrire</a>
+          <a class="nav-link" data-target="#inscriptionModal33" data-toggle="modal"><i class="fa fa-envelope"></i> S'Inscrire</a>
         </li>
         <li class="nav-item active" data-toggle="collapse" data-target=".navbar-collapse.show">
           <router-link class="nav-link" to="/contact"><i class="fa fa-paper-plane"></i> Contact</router-link>

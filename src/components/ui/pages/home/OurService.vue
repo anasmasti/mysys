@@ -13,7 +13,7 @@
         background: 'url('+require('../../assets/bg/analytic.jpg')+'),'+'no-repeat',
         backgroundSize: 'cover'
       }" -->
-      <div class="service bg_gradient px-lg-5 px-4">
+      <div class="service bg_gradient pl-lg-5 pl-4 p-5 p-lg-0">
         <div class="col-lg-6 col-12 pr-lg-5">
           <div class="d-flex flex-column flex-nowrap">
             <h1 class="font-lg-s12 font-md-s12 font-sm-s11 font-xs-s8">Placement des ressources</h1>
@@ -24,16 +24,16 @@
             ,Les freelancers, ou les chercheurs d'emploi permanent devraient
             trouver leur compte
           </p>
-          <router-link to="/all-services/#pdr" class="btn btn-sm btn-light font-s2 ml-0 mt-2">savoir plus</router-link>
+          <router-link to="/all-services/#pdr" class="btn btn-outline-light font-s2 ml-0 mt-2">savoir plus</router-link>
         </div>
         <div class="col-lg-6">
-          <img src="../../../../assets/img/bg/placement-resource.jpg" alt="" class="service-img">
+          <img src="../../../../assets/img/bg/formation-it.jpg" alt="" class="service-img">
         </div>
       </div>
       
-      <div class="service bg_gradient px-lg-5 px-4">
+      <div class="service bg_gradient pr-lg-5 pr-4 p-5 p-lg-0">
         <div class="col-lg-6">
-          <img src="../../../../assets/img/bg/integration-erp.jpg" alt="" class="service-img">
+          <img src="../../../../assets/img/bg/formation-it.jpg" alt="" class="service-img">
         </div>
         <div class="col-lg-6 col-12 pl-lg-5">
           <div class="d-flex flex-column flex-nowrap">
@@ -44,11 +44,11 @@
             n dʼaméliorer lʼefficacité de vos services et vous procurer
             un avantage concurrentiel durable.
           </p>
-          <router-link to="/all-services/#erp" class="btn btn-sm btn-light font-s2 ml-0 mt-2">savoir plus</router-link>
+          <router-link to="/all-services/#erp" class="btn btn-outline-light font-s2 ml-0 mt-2">savoir plus</router-link>
         </div>
       </div>
       
-      <div class="service bg_gradient px-lg-5 px-4">
+      <div class="service bg_gradient pl-lg-5 pl-4 p-5 p-lg-0">
         <div class="col-lg-6 col-12 pr-lg-5">
           <div class="d-flex flex-column flex-nowrap">
             <h1 class="font-lg-s12 font-md-s12 font-sm-s11 font-xs-s8">Formations IT</h1>
@@ -61,7 +61,7 @@
             Nos formations combinent à la fois expertise pratique, esprit de synthèse,
             pédagogie dʼenseignement et expérience terrain.
           </p>
-          <router-link to="/all-services/#fm" class="btn btn-sm btn-light font-s2 ml-0 mt-2">savoir plus</router-link>
+          <router-link to="/all-services/#fm" class="btn btn-outline-light font-s2 ml-0 mt-2">savoir plus</router-link>
         </div>
         <div class="col-lg-6">
           <img src="../../../../assets/img/bg/formation-it.jpg" alt="" class="service-img">

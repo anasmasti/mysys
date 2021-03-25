@@ -103,7 +103,7 @@
 
             <div class="d-flex flex-nowrap align-items-center">
               <input type="text" class="form-control form-control-sm" placeholder="Adresse E-Mail">
-              <button class="btn font_sm btn-primary ml-0">S'abonner</button>
+              <button class="btn font_sm btn-outline-primary ml-0">S'abonner</button>
             </div>
 
           </span>

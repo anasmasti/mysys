@@ -1,7 +1,6 @@
 <template>
 <div>
-  <!-- <img class="navbar-brand" height="60" src="../../assets/img/mysys-logo.png" alt="mysys-logo"> -->
-  <nav class="navbar navbar-expand-md navbar-light bg-transparent border-0 text_light p-3">
+  <nav class="navbar navbar-expand-md navbar-light bg-transparent border-0 text_light p-3 mx-lg-4">
     <a class="navbar-brand" href="/home">
       <img class="navbar-brand" height="35" src="../../../../assets/img/logos/logo_black.png" alt="mysys-logo">
     </a>

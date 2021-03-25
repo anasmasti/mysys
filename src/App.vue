@@ -2,7 +2,6 @@
   <div id="app">
     <router-view></router-view>
     <Footer />
-
     <a href="#" @click.prevent="ScrollToTopEvent">
       <i class="material-icons" id="back_to_top">arrow_upward</i>
     </a>
@@ -19,7 +18,6 @@
 <script>
 import { mapState } from 'vuex';
 import Footer from './components/ui/shared/common/Footer.vue';
-// import { mapActions } from 'vuex';
 
 export default {
   name: 'App',
@@ -42,10 +40,6 @@ export default {
       themes: state => state.themes,
       formations: state => state.formations,
     })
-    // domaines() { return this.$store.formation_module.state.domaines; },
-    // themes() { return this.$store.formation_module.state.themes; },
-    // formations() { return this.$store.formation_module.state.formations; },
-  
   },
   methods: {
     // **** UI EVENTS ****

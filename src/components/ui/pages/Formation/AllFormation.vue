@@ -4,20 +4,17 @@
   <div class="container-fluid pb-2">
     <div class="main-title">
       <span class="title">Nos Formations</span>
-      <select class="subselect" v-if="is_domaineLoaded && domaines" 
-        @change="LoadThemesWithFormations(selectedDomaineId)"
-        v-model="selectedDomaineId">
-        <option v-for="(dom, domIndex) in domaines" :value="dom.id" 
-          :selected="(currDomaineId == dom.id)" :key="domIndex" >
+      <div class="subselect" v-if="is_domaineLoaded && domaines">
+        <a v-for="dom in domaines" class="btn btn-sm btn-outline-dark mr-2"
+          :key="dom.id" @click="LoadThemesWithFormations(dom.id)">
           {{ dom.name }}
-        </option>
-      </select>
-
-      <select v-else class="subselect">
-        <option class="subelement">
+        </a>
+      </div>
+      <div v-else class="subselect">
+        <p class="subelement">
           {{ "..." }}
-        </option>
-      </select>
+        </p>
+      </div>
     </div>
   </div>
   
@@ -87,13 +84,8 @@
     </div>
     <!-- tab-content -->
     <div v-else-if="is_formationLoaded && formations_by_theme && !formations_by_theme.length" class="loading px-4">
-      <h3 class="text_mysyscolor1 font-lg-s8 font-xs-s4 font-s4 text-center">
-        <!-- <i class="material-icons">assistant_photo</i> -->
-        Aucune formation pour l'instant
-        <i class="material-icons">golf_course</i>
-        <!-- <button class="icon-btn bg-light" @click="handleAction('SetFormationsByTheme', currThemeId)">
-          <i class="material-icons">refresh</i>
-        </button> -->
+      <h3 class="text-dark font-lg-s8 font-xs-s4 font-s4 text-center">
+        Aucune formation pour l'instant.
       </h3>
     </div>
     <!-- LOADING .. -->
@@ -110,8 +102,6 @@
     </div>
     <!-- ERROR .. -->
     <!-- ************ END FORMATIONS ************ -->
-
-
   </div>
   <!-- end-container-fluid -->
   
