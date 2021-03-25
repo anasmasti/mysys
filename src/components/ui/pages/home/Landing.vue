@@ -2,7 +2,7 @@
 	<section class="container-fluid d-flex flex-column justify-items-center my-5">
 		<div class="text-light p-4 py-lg-5 my-lg-5">
 			<!-- <Countdown end="August 22, 2021" showDays showHours showMinutes showSeconds></Countdown></div> -->
-			<router-link to="about" class="text-light font_sm">Savoir plus..</router-link>
+			<router-link to="about" class="text-light btn btn-sm btn-outline-light font_sm">Savoir plus</router-link>
 			<h1 class="display-3 font-xs-s10 text_bold">
 				MYSYS,UNE EXPERTISE AU SERVICE DE L'ENTREPRISE.
 			</h1>
