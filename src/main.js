@@ -12,8 +12,8 @@ Vue.use(VueSocialSharing)
 Vue.use(require('vue-moment'));
 
 new Vue({
-  el: '#app',
-  router: router,
-  render: h => h(App),
-  store,
+    el: '#app',
+    router: router,
+    render: h => h(App),
+    store,
 }).$mount('#app');
