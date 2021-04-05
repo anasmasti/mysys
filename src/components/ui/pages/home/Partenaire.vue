@@ -2,9 +2,7 @@
   <div id="partenaire">
     <div class="container-fluid mb-4 border-bottom">
       <div class="row">
-        <div
-          class="p-card col-lg-6 col-sm-12 bg_gradient p-3 border-0 radius_0"
-        >
+        <div class="p-card col-lg-6 col-sm-12 bg_gradient p-3 border-0 radius_0">
           <div class="card-body d-flex flex-column justify-content-center">
             <h1 class="font-s12 font-md-s10 font-sm-s8 text_bold">
               Nos Partenaires

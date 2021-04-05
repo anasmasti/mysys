@@ -141,10 +141,7 @@ export default {
           Conseil Intégration Des ERP et AMOA
         </h1>
         <div class="col-lg-6">
-          <div
-            class="card p-lg-3 text-light m-3 border-0"
-            style="background-color: #a649a4"
-          >
+          <div class="card p-lg-3 text-light m-3 border-0" style="background-color: #a649a4" >
             <div class="card-body font-weight-light">
               <div class="card-title">
                 <h1 class="text_bold text-center">Odoo</h1>
@@ -192,10 +189,7 @@ export default {
         </div>
 
         <div class="col-lg-6">
-          <div
-            class="card p-lg-3 text-light m-3 border-0"
-            style="background-color: #004d9c"
-          >
+          <div class="card p-lg-3 text-light m-3 border-0" style="background-color: #004d9c" >
             <div class="card-body text_light">
               <div class="card-title">
                 <h1 class="text_bold text-center">MS Dynamics</h1>
@@ -233,10 +227,7 @@ export default {
         </div>
 
         <div class="col-lg-6">
-          <div
-            class="card p-lg-3 text-light m-3 border-0"
-            style="background-color: #3aab3d"
-          >
+          <div class="card p-lg-3 text-light m-3 border-0" style="background-color: #3aab3d">
             <div class="card-body text_light">
               <div class="card-title">
                 <h1 class="text_bold text-center">Sage</h1>

@@ -126,11 +126,7 @@
             <p class="footer-title">S'ABONNER À NOTRE NEWSLETTER</p>
             <span class="footer-item d-flex align-items-center">
               <div class="d-flex flex-nowrap align-items-center">
-                <input
-                  type="text"
-                  class="form-control form-control-sm"
-                  placeholder="Adresse E-Mail"
-                />
+                <input type="text" class="form-control form-control-sm" placeholder="Adresse E-Mail"/>
                 <button class="btn font_sm btn-outline-primary ml-0">
                   S'abonner
                 </button>
