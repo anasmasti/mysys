@@ -136,7 +136,7 @@
         </div>
       </div>
       <h6 class="font-weight-light mt-5 pl-lg-5">
-        Copyright &copy; 2020 MySYS
+        Copyright &copy; 2021 MySYS
       </h6>
     </div>
   </div>
